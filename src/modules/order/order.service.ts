@@ -52,7 +52,12 @@ export const getOrders = async () => {
   return prisma.order.findMany({
     where: { deleteStatus: false },
     include: {
-      orderMedicines: true,
+      user: true,
+      orderMedicines: {
+        include: {
+          medicine: true,
+        },
+      },
     },
   });
 };
