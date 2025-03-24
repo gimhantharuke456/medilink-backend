@@ -73,6 +73,7 @@ export const getOrderByPrescriptionId = async (id: number) => {
       where: { prescriptionId: id },
       include: {
         prescription: true,
+        pharmacy: true,
         orderMedicines: {
           include: {
             medicine: true,
