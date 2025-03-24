@@ -67,6 +67,22 @@ export const getOrderById = async (id: number) => {
   });
 };
 
+export const getOrderByPrescriptionId = async (id: number) => {
+  try {
+    return await prisma.order.findMany({
+      where: { prescriptionId: id },
+      include: {
+        prescription: true,
+        orderMedicines: {
+          include: {
+            medicine: true,
+          },
+        },
+      },
+    });
+  } catch (error) {}
+};
+
 // Update an order
 export const updateOrder = async (id: number, input: UpdateOrderInput) => {
   return prisma.order.update({
