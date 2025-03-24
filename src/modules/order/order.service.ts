@@ -25,6 +25,15 @@ export const createOrder = async (input: CreateOrderInput) => {
     })
   );
 
+  await prisma.prescription.update({
+    where: {
+      id: orderData.prescriptionId,
+    },
+    data: {
+      status: "completed",
+    },
+  });
+
   return prisma.order.create({
     data: {
       ...orderData,
